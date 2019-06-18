@@ -7,8 +7,9 @@ import urllib
 import random
 from xml.etree import ElementTree as ET
 import json as js
+import codecs
 
-filePath = "/Users/colorful/Desktop/ME20_40简体中文_繁体中文/cameracontrol/strings_tw.xml";
+filePath = "/Users/colorful/Desktop/ME20_40简体中文_繁体中文/cameracontrol/strings_tw.xml"
 
 appid = '20190617000308218'  # 你的appid
 secretKey = 'ntwK9usqie7s0ojom0gP'  # 你的密钥
@@ -19,6 +20,7 @@ fromLang = 'zh'
 toLang = 'cht'
 salt = random.randint(32768, 65536)
 
+ET.register_namespace('tools', "http://schemas.android.com/tools")
 tree = ET.parse(filePath)
 root = tree.getroot()
 
@@ -52,5 +54,10 @@ for child in root:
     finally:
         if httpClient:
             httpClient.close()
-tree.write(filePath, encoding="utf-8", xml_declaration=True, method='xml')
+
+xml_str = '<?xml version="1.0" encoding="UTF-8"?>\n' + ET.tostring(root, method='xml', encoding="UTF-8").decode("utf-8")  # 避免声明是单引号
+print(xml_str)
+with open(filePath, 'w') as xml_file:
+    xml_file.write(xml_str)
+
 print("-----XML字段更新完毕！")
