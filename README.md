@@ -1,0 +1,2 @@
+# android_strings_translate
+应用百度翻译API，实现Android字符串的翻译功能
