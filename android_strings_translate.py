@@ -1,4 +1,4 @@
-# /usr/bin/env baidu_translate
+# /usr/bin/env android_strings_translate
 # coding=utf8
 
 import http.client
