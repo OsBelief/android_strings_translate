@@ -8,11 +8,13 @@ import random
 from xml.etree import ElementTree as ET
 import json as js
 import os
+from configparser import ConfigParser
 
-filePath = "/Users/colorful/Desktop/ME20_40简体中文_繁体中文/cameracontrol/strings.xml"     # 设置strings.xml的路径
-
-appid = '20190617000308218'  # 你的appid
-secretKey = 'ntwK9usqie7s0ojom0gP'  # 你的密钥
+config = ConfigParser()
+config.read('config.ini', encoding='UTF-8')
+appid = config.get("config", "appid")  # 你的appid
+secretKey = config.get("config", "secretKey")  # 你的密钥
+filePath = config.get("config", "filePath")  # 设置strings.xml的路径
 
 httpClient = None
 myurl = '/api/trans/vip/translate'
@@ -60,7 +62,7 @@ for child in root:
 
 if result is False:
     print("存在翻译失败的字符串, 退出程序!")
-    exec(0)
+    exec 0
 
 xml_str = '<?xml version="1.0" encoding="UTF-8"?>\n' + ET.tostring(root, method='xml', encoding="UTF-8").decode(
     "UTF-8")  # 避免声明是单引号
