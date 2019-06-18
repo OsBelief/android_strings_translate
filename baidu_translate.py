@@ -7,7 +7,6 @@ import urllib
 import random
 from xml.etree import ElementTree as ET
 import json as js
-import codecs
 
 filePath = "/Users/colorful/Desktop/ME20_40简体中文_繁体中文/cameracontrol/strings_tw.xml"
 
