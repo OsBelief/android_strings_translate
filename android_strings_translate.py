@@ -9,6 +9,7 @@ from xml.etree import ElementTree as ET
 import json as js
 import os
 from configparser import ConfigParser
+import logging
 
 config = ConfigParser()
 config.read('config.ini', encoding='UTF-8')
@@ -29,6 +30,9 @@ root = tree.getroot()
 result = True
 
 for child in root:
+    if child.text is None:
+        logging.warning(child.attrib["name"] + " value is empty!")
+        continue
     sign = appid + child.text + str(salt) + secretKey
     m1 = md5(sign.encode("utf-8"))
     sign = m1.hexdigest()
@@ -62,7 +66,7 @@ for child in root:
 
 if result is False:
     print("存在翻译失败的字符串, 退出程序!")
-    exec 0
+    exec (0)
 
 xml_str = '<?xml version="1.0" encoding="UTF-8"?>\n' + ET.tostring(root, method='xml', encoding="UTF-8").decode(
     "UTF-8")  # 避免声明是单引号
