@@ -10,6 +10,7 @@ import json as js
 import os
 from configparser import ConfigParser
 import logging
+import time
 
 config = ConfigParser()
 config.read('config.ini', encoding='UTF-8')
@@ -56,6 +57,7 @@ for child in root:
         print("src:", trans_result[0]["src"], "dst:", trans_result[0]["dst"])
         child.text = trans_result[0]["dst"]
 
+        time.sleep(3)
     except Exception as e:
         result = False
         print("请求百度翻译接口失败！", e.args)
